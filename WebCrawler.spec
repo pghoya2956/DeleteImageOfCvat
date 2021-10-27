@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['WebCrawler.py'],
-             pathex=['C:\\Users\\Administrator\\Downloads\\WebCroller'],
+             pathex=['C:\\Users\\Administrator\\Desktop\\DeleteImageOfCvat'],
              binaries=[('KST.png', '.'), ('chromedriver.exe', '.'), ('webcrawler.ui', '.')],
              datas=[],
              hiddenimports=[],
