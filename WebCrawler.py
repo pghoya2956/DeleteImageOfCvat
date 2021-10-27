@@ -71,6 +71,9 @@ class KSTWebCrawler(QWidget, form_class):
         # init UI
         self.init_ui()
 
+        # set button enable
+        self.btn_search.setEnabled(False)
+
         # read input value
         input_url = self.comboBox_url.currentText()
         input_id = self.lineEdit_id.text()
@@ -81,9 +84,6 @@ class KSTWebCrawler(QWidget, form_class):
         if self.input_fail(input_id, input_pw, input_taskid):
             QMessageBox.about(self, "KST", "입력을 완료하세요.")
             return
-
-        # set button enable
-        self.btn_search.setEnabled(False)
 
         data = {'input_url': input_url,
                 'input_id': input_id,
@@ -181,6 +181,8 @@ class Worker(QThread):
             elif self.cvat_url == "http://192.168.0.33:8080":
                 self.driver.find_element(By.XPATH,
                                          value='//*[@id="root"]/section/main/div/div/form/div[3]/div/div/div/button').click()
+            # 동작 안함
+            # self.driver.find_element(By.CLASS_NAME, value="ant-btn ant-btn-primary login-form-button").click()
 
             sleep(1)
 
