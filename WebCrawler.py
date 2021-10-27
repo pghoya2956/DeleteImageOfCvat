@@ -174,7 +174,7 @@ class Worker(QThread):
             self.driver.find_element(By.ID, value='username').send_keys(self.data['input_id'])
             self.driver.find_element(By.ID, value='password').send_keys(self.data['input_pw'])
 
-            # # login
+            # login
             self.driver.find_element(By.CLASS_NAME,
                                      value="ant-btn.ant-btn-primary.login-form-button").click()
 
