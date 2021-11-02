@@ -25,7 +25,6 @@ def resource_path(relative_path):
 
 # Qt Designer load
 form_class = uic.loadUiType(resource_path("webcrawler.ui"))[0]
-options = webdriver.ChromeOptions()
 
 
 class KSTWebCrawler(QWidget, form_class):
@@ -145,16 +144,17 @@ class Worker(QThread):
         # CVAT URL
         self.cvat_url = self.data['input_url']
 
+        self.options = webdriver.ChromeOptions()
         # execute Chrome
         if self.parent.checkBox.isChecked():
-            options.add_argument("headless")
+            self.options.add_argument("headless")
 
         # chrome drive import when using pyinstaller
         if getattr(sys, 'frozen', False):
             chromedriver_path = os.path.join(sys._MEIPASS, "chromedriver.exe")
-            self.driver = webdriver.Chrome(chromedriver_path, options=options)
+            self.driver = webdriver.Chrome(chromedriver_path, options=self.options)
         else:
-            self.driver = webdriver.Chrome(options=options)
+            self.driver = webdriver.Chrome(options=self.options)
 
         # chrome start
         self.driver.get(self.cvat_url)
