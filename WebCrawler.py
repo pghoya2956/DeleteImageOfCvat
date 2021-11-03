@@ -49,6 +49,7 @@ class KSTWebCrawler(QWidget, form_class):
         self.dateEdit.setDate(QDate.currentDate())
 
         # comboBox
+        self.comboBox_url.addItem("http://192.168.0.73:8080")
         self.comboBox_url.addItem("http://222.97.145.216")
         self.comboBox_url.addItem("http://192.168.0.33:8080")
 
