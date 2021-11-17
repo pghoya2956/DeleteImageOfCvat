@@ -1,5 +1,9 @@
 pyinstaller --noconsole --add-binary "KST.png";"." --add-binary "chromedriver.exe";"." --add-binary "webcrawler.ui";"." --onefile --icon=KST.ico "WebCrawler.py"
 
+pyinstaller --noconsole --add-binary "KST.png";"." --add-binary "chromedriver_96.0.4664.35.exe";"." --add-binary "webcrawler.ui";"." --onefile --icon=KST.ico -n DeleteImageOfCvat_0.0.9v.exe "main.py"
+
+# 크롬 드라이버 자동 다운로드
+pyinstaller --noconsole --add-binary "KST.png";"." --add-binary "webcrawler.ui";"." --onefile --icon=KST.ico -n test.exe "main.py"."
 
 ------------------------------------------------------------------------------------------------------------------------------
 --noconsole 미적용 해결방법

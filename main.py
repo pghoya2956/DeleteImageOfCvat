@@ -10,7 +10,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 from PyQt5 import uic
 
-from webCrawlingThread import WorkerPrint
+from DeleteImageOfCvat import WorkerPrint
 
 
 def resource_path(relative_path):
@@ -34,10 +34,10 @@ class KSTWebCrawler(QWidget, form_class):
         self.setWindowIcon(QIcon(icon))
 
         # thread
-        self.th = None
+        self.th1 = None
 
         # button listener
-        self.btn_search.clicked.connect(self.execute)
+        self.btn_search.clicked.connect(self.deleteImageOfCvat)
         self.btn_go_sheet.clicked.connect(lambda: webbrowser.open(
             'https://docs.google.com/spreadsheets/d/1i9zy90_Qbr03lKZC-CYBfDKxnhWE0aPHbyQFZYqK_dE/edit#gid=0'))
 
@@ -63,7 +63,7 @@ class KSTWebCrawler(QWidget, form_class):
 
         return False
 
-    def execute(self):
+    def deleteImageOfCvat(self):
         # init UI
         self.init_ui()
 
@@ -79,6 +79,7 @@ class KSTWebCrawler(QWidget, form_class):
         # input check
         if self.input_fail(input_id, input_pw, input_taskid):
             QMessageBox.about(self, "KST", "입력을 완료하세요.")
+            self.btn_search.setEnabled(True)
             return
 
         data = {'input_url': input_url,
@@ -87,17 +88,17 @@ class KSTWebCrawler(QWidget, form_class):
                 'input_taskid': input_taskid}
 
         # send data for thread(Worker)
-        self.th = WorkerPrint(data, parent=self)
-        self.th.thread_signal_textBrowser.connect(self.show_textBrowser)
-        self.th.thread_signal_textBrowser_wait.connect(self.show_textBrowser_wait)
-        self.th.thread_signal_textBrowser_clear.connect(self.show_textBrowser_clear)
-        self.th.thread_signal_progressbar.connect(self.show_progressbar)
-        self.th.thread_signal_label_tot_count.connect(self.show_count)
-        self.th.thread_signal_toast.connect(self.show_toast)
-        self.th.thread_signal_stop.connect(self.thread_stop)
+        self.th1 = WorkerPrint(data, parent=self)
+        self.th1.thread_signal_textBrowser.connect(self.show_textBrowser)
+        self.th1.thread_signal_textBrowser_wait.connect(self.show_textBrowser_wait)
+        self.th1.thread_signal_textBrowser_clear.connect(self.show_textBrowser_clear)
+        self.th1.thread_signal_progressbar.connect(self.show_progressbar)
+        self.th1.thread_signal_label_tot_count.connect(self.show_count)
+        self.th1.thread_signal_toast.connect(self.show_toast)
+        self.th1.thread_signal_stop.connect(self.thread_stop)
 
         # thread start
-        self.th.start()
+        self.th1.start()
 
     def show_textBrowser(self, img_name):
         self.textBrowser.append(img_name)
@@ -118,7 +119,7 @@ class KSTWebCrawler(QWidget, form_class):
         QMessageBox.about(self, "KST", string)
 
     def thread_stop(self):
-        self.th.terminate()
+        self.th1.terminate()
 
 
 if __name__ == "__main__":
