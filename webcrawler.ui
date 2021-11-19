@@ -188,7 +188,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>date</string>
+    <string>Date</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

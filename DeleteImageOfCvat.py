@@ -42,15 +42,11 @@ class WorkerPrint(QThread):
         chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]
         try:
             self.thread_signal_textBrowser.emit("Chrome Driver Exist")
-            if getattr(sys, 'frozen', False):
-                chromedriver_path = os.path.join(sys._MEIPASS, f'./{chrome_ver}/chromedriver.exe')
-                self.driver = webdriver.Chrome(chromedriver_path, options=self.options)
-            else:
-                self.driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe', options=self.options)
+            self.driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe', options=self.options)
         except:
             self.thread_signal_textBrowser.emit("Chrome Driver Install")
             chromedriver_autoinstaller.install(True)
-            self.driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe')
+            self.driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe', options=self.options)
 
         # chrome start
         self.driver.get(self.cvat_url)
